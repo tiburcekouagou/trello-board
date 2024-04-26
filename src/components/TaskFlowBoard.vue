@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Column } from '@/types'
+import type { Column, Task } from '@/types'
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 import TaskFlowTask from './TaskFlowTask.vue'
@@ -99,7 +99,11 @@ const columns = ref<Column[]>([
             <DragHandle />
             {{ column.title }}
           </header>
-          <TaskFlowTask v-for="task in column.tasks" :key="task.id" :task="task" />
+          <draggable v-model="column.tasks" group="tasks" :animate="150" item-key="id">
+            <template #item="{ element: task }: { element: Task }">
+              <TaskFlowTask :task="task" />
+            </template>
+          </draggable>
           <footer>
             <button class="text-gray-500">+ Ajouter une tache</button>
           </footer>
