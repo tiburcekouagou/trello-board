@@ -6,6 +6,7 @@ import TaskFlowTask from './TaskFlowTask.vue'
 import draggable from 'vuedraggable'
 import DragHandle from './DragHandle.vue'
 import { useKeyModifier } from '@vueuse/core'
+import NewTask from './NewTask.vue'
 
 const columns = ref<Column[]>([
   {
@@ -115,7 +116,7 @@ const alt = useKeyModifier('Alt')
             </template>
           </draggable>
           <footer>
-            <button class="text-gray-500">+ Ajouter une tache</button>
+            <NewTask @add="column.tasks.push($event)" />
           </footer>
         </div>
       </template>
