@@ -3,6 +3,7 @@ import type { Column } from '@/types'
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 import TaskFlowTask from './TaskFlowTask.vue'
+import draggable from 'vuedraggable'
 
 const columns = ref<Column[]>([
   {
@@ -82,7 +83,7 @@ const columns = ref<Column[]>([
 </script>
 
 <template>
-  <div class="flex gap-4 overflow-x-auto items-start">
+  <!-- <div class="flex gap-4 overflow-x-auto items-start">
     <div
       v-for="column in columns"
       :key="column.id"
@@ -91,8 +92,30 @@ const columns = ref<Column[]>([
       <header class="font-bold mb-4">
         {{ column.title }}
       </header>
-      <!-- <p v-for="task in column.tasks" :key="task.id">{{ task.title }}</p> -->
       <TaskFlowTask v-for="task in column.tasks" :key="task.id" :task="task" />
+      <footer>
+        <button class="text-gray-500">+ Ajouter une tache</button>
+      </footer>
     </div>
+  </div> -->
+  <div>
+    <draggable
+      v-model="columns"
+      group="columns"
+      item-key="id"
+      class="flex gap-4 overflow-x-auto items-start"
+    >
+      <template #item="{ element: column }: { element: Column }">
+        <div class="column bg-gray-200 p-5 rounded min-w-[250px]">
+          <header class="font-bold mb-4">
+            {{ column.title }}
+          </header>
+          <TaskFlowTask v-for="task in column.tasks" :key="task.id" :task="task" />
+          <footer>
+            <button class="text-gray-500">+ Add a Card</button>
+          </footer>
+        </div>
+      </template>
+    </draggable>
   </div>
 </template>
