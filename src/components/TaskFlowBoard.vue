@@ -109,7 +109,9 @@ const alt = useKeyModifier('Alt')
             :group="{ name: 'tasks', pull: alt ? 'clone' : true }"
           >
             <template #item="{ element: task }: { element: Task }">
-              <TaskFlowTask :task="task" />
+              <div>
+                <TaskFlowTask :task="task" />
+              </div>
             </template>
           </draggable>
           <footer>
