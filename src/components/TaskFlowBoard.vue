@@ -2,6 +2,7 @@
 import type { Column } from '@/types'
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
+import TaskFlowTask from './TaskFlowTask.vue'
 
 const columns = ref<Column[]>([
   {
@@ -81,16 +82,17 @@ const columns = ref<Column[]>([
 </script>
 
 <template>
-  <div class="flex gap-4 overflow-x-auto">
+  <div class="flex gap-4 overflow-x-auto items-start">
     <div
       v-for="column in columns"
       :key="column.id"
       class="column bg-gray-200 p-5 rounded min-w-[250px]"
     >
-      <header>
+      <header class="font-bold mb-4">
         {{ column.title }}
       </header>
-      <p v-for="task in column.tasks" :key="task.id">{{ task.title }}</p>
+      <!-- <p v-for="task in column.tasks" :key="task.id">{{ task.title }}</p> -->
+      <TaskFlowTask v-for="task in column.tasks" :key="task.id" :task="task" />
     </div>
   </div>
 </template>
