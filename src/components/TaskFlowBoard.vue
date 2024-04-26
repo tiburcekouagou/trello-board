@@ -5,6 +5,7 @@ import { ref } from 'vue'
 import TaskFlowTask from './TaskFlowTask.vue'
 import draggable from 'vuedraggable'
 import DragHandle from './DragHandle.vue'
+import { useKeyModifier } from '@vueuse/core'
 
 const columns = ref<Column[]>([
   {
@@ -81,6 +82,8 @@ const columns = ref<Column[]>([
     tasks: []
   }
 ])
+
+const alt = useKeyModifier('Alt')
 </script>
 
 <template>
@@ -99,7 +102,12 @@ const columns = ref<Column[]>([
             <DragHandle />
             {{ column.title }}
           </header>
-          <draggable v-model="column.tasks" group="tasks" :animate="150" item-key="id">
+          <draggable
+            v-model="column.tasks"
+            :animate="150"
+            item-key="id"
+            :group="{ name: 'tasks', pull: alt ? 'clone' : true }"
+          >
             <template #item="{ element: task }: { element: Task }">
               <TaskFlowTask :task="task" />
             </template>
