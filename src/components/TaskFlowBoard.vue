@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Column, Task } from '@/types'
 import { nanoid } from 'nanoid'
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, watch } from 'vue'
 import TaskFlowTask from './TaskFlowTask.vue'
 import draggable from 'vuedraggable'
 import DragHandle from './DragHandle.vue'
@@ -155,7 +155,7 @@ watch(
       </template>
     </draggable>
     <button @click="createColumn" class="bg-gray-200 whitespace-nowrap p-2 rounded opacity-50">
-      + Ajouter une colonne
+      + Ajouter une nouvelle liste
     </button>
   </div>
 </template>
