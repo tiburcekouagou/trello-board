@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { Column, Task } from '@/types'
 import { nanoid } from 'nanoid'
-import { nextTick, ref } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import TaskFlowTask from './TaskFlowTask.vue'
 import draggable from 'vuedraggable'
 import DragHandle from './DragHandle.vue'
-import { useKeyModifier } from '@vueuse/core'
+import { useKeyModifier, useLocalStorage } from '@vueuse/core'
 import NewTask from './NewTask.vue'
 
-const columns = ref<Column[]>([
+const columns = useLocalStorage<Column[]>('taskflowBoard', [
   {
     id: nanoid(),
     title: 'Backlog',
@@ -97,6 +97,16 @@ function createColumn() {
     ;(document.querySelector('.column:last-of-type .title-input') as HTMLInputElement).focus()
   })
 }
+
+watch(
+  columns,
+  () => {
+    // ajax request
+  },
+  {
+    deep: true
+  }
+)
 </script>
 
 <template>
